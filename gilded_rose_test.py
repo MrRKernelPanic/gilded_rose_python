@@ -32,3 +32,22 @@ def test_quality_after_sell_date_passed():
     gilded_rose = GildedRose([item])
     gilded_rose.update_quality()
     assert gilded_rose.items[0].quality == 3
+
+def test_aged_brie_quality_increases_with_age():
+    item = Item("Aged Brie", 1, 5)
+    gilded_rose = GildedRose([item])
+    gilded_rose.update_quality()
+    assert gilded_rose.items[0].quality == 6    
+
+def test_aged_brie_quality_increases_twice_as_fast_past_sell_in_less_than_zero():
+    item = Item("Aged Brie", 0, 5)
+    gilded_rose = GildedRose([item])
+    gilded_rose.update_quality()
+    assert gilded_rose.items[0].quality == 7
+
+def test_quality_never_increases_over_fifty():
+    item = Item("Aged Brie", 0, 50)
+    gilded_rose = GildedRose([item])
+    gilded_rose.update_quality()
+    assert gilded_rose.items[0].quality == 50
+    
