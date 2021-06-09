@@ -50,4 +50,34 @@ def test_quality_never_increases_over_fifty():
     gilded_rose = GildedRose([item])
     gilded_rose.update_quality()
     assert gilded_rose.items[0].quality == 50
-    
+
+def test_sulfuras_quality_and_sell_in_never_change():
+    item = Item("Sulfuras, Hand of Ragnaros", 5, 80)
+    gilded_rose = GildedRose([item])
+    gilded_rose.update_quality()
+    assert gilded_rose.items[0].quality == 80
+    assert gilded_rose.items[0].sell_in == 5
+
+def test_backstage_pass_quality_normal_increase():
+    item = Item("Backstage passes to a TAFKAL80ETC concert", 15, 25)
+    gilded_rose = GildedRose([item])
+    gilded_rose.update_quality()
+    assert gilded_rose.items[0].quality == 26
+
+def test_backstage_pass_quality_ten_or_less_sell_in():
+    item = Item("Backstage passes to a TAFKAL80ETC concert", 9, 25)
+    gilded_rose = GildedRose([item])
+    gilded_rose.update_quality()
+    assert gilded_rose.items[0].quality == 27
+
+def test_backstage_pass_quality_three_or_less_sell_in():
+    item = Item("Backstage passes to a TAFKAL80ETC concert", 5, 25)
+    gilded_rose = GildedRose([item])
+    gilded_rose.update_quality()
+    assert gilded_rose.items[0].quality == 28
+
+def test_backstage_pass_quality_after_sell_in():
+    item = Item("Backstage passes to a TAFKAL80ETC concert", 0, 25)
+    gilded_rose = GildedRose([item])
+    gilded_rose.update_quality()
+    assert gilded_rose.items[0].quality == 0
