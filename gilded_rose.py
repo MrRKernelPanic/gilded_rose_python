@@ -61,4 +61,20 @@ class NormalItem(Item):
             self.quality -= 1
         
         if self.quality < 0:
-            self.quality = 0
+            self.quality = 0    
+
+class AgedItem(Item):
+    def __init__(self, name, sell_in, quality):
+        Item.__init__(self, name, sell_in, quality)
+
+    def update_item(self):
+        self.sell_in -= 1
+        self._update_quality()
+
+    def _update_quality(self):
+        if self.sell_in <= 0:
+            self.quality += 2
+        else:
+            self.quality += 1
+        if self.quality > 50:
+            self.quality = 50
