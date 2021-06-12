@@ -36,6 +36,7 @@ class GildedRose(object):
                         item.quality = item.quality + 1
 
 
+
 class Item:
     def __init__(self, name, sell_in, quality):
         self.name = name
@@ -44,4 +45,20 @@ class Item:
 
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
+
+class NormalItem(Item):
+    def __init__(self, name, sell_in, quality):
+        Item.__init__(self, name, sell_in, quality)
+    
+    def update_item(self):
+        self.sell_in -= 1
+        self._update_quality()
         
+    def _update_quality(self):
+        if self.sell_in <= 0:
+            self.quality -= 2
+        elif self.sell_in > 0:
+            self.quality -= 1
+        
+        if self.quality < 0:
+            self.quality = 0

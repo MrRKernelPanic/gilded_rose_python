@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from gilded_rose import Item, GildedRose
+from gilded_rose import Item, GildedRose, NormalItem
 
 def test_item():
     item = Item("Apple", 5, 10)
@@ -81,3 +81,33 @@ def test_backstage_pass_quality_after_sell_in():
     gilded_rose = GildedRose([item])
     gilded_rose.update_quality()
     assert gilded_rose.items[0].quality == 0
+
+def test_normal_item():
+    item = NormalItem("Apple", 5, 10)
+    assert "Apple, 5, 10" == item.__repr__()
+
+def test_update_normal_item_quality():
+    item = NormalItem("Pear", 7, 5)
+    item.update_item()
+    assert item.sell_in == 6
+    assert item.quality == 4
+
+def test_normal_item_quality_cannot_go_below_zero():
+    item = NormalItem("Pear", 7, 0)
+    item.update_item()
+    assert item.quality == 0
+
+def test_normal_item_quality_after_sell_date_passed():
+    item = NormalItem("Pear", 0, 5)
+    item.update_item()
+    assert item.quality == 3
+
+def test_normal_item_quality_after_sell_date_passed_and_quality_is_zero():
+    item = NormalItem("Pear", 0, 0)
+    item.update_item()
+    assert item.quality == 0
+
+def test_normal_item_quality_after_sell_date_passed_and_quality_is_one():
+    item = NormalItem("Pear", 1, 1)
+    item.update_item()
+    assert item.quality == 0
