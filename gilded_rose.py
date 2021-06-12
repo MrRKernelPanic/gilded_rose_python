@@ -78,3 +78,10 @@ class AgedItem(Item):
             self.quality += 1
         if self.quality > 50:
             self.quality = 50
+
+class LegendaryItem(Item):
+    def __init__(self, name, sell_in, quality):
+        Item.__init__(self, name, sell_in, quality)
+
+    def update_item(self):
+        pass

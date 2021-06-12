@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from gilded_rose import GildedRose, Item, NormalItem, AgedItem
+from gilded_rose import GildedRose, Item, NormalItem, AgedItem, LegendaryItem
 
 def test_item():
     item = Item("Apple", 5, 10)
@@ -131,3 +131,9 @@ def test_aged_item_brie_quality_never_above_fifty():
     item = AgedItem("Aged Brie", 0, 50)
     item.update_item()
     assert item.quality == 50
+
+def test_legendary_item_sulfuras_quality_and_sell_in_never_chage():
+    item = LegendaryItem("Sulphuras, Hand of Ragnaros", 5, 80)
+    item.update_item()
+    assert item.quality == 80
+    assert item.sell_in == 5
