@@ -30,8 +30,7 @@ class NormalItem(Item):
         if self.sell_in <= 0:
             self.quality -= 2
         elif self.sell_in > 0:
-            self.quality -= 1
-        
+            self.quality -= 1        
         if self.quality < 0:
             self.quality = 0    
 
@@ -75,3 +74,20 @@ class TicketItem(Item):
             self.quality += 2
         elif self.quality > 0:
             self.quality += 1
+
+class ConjuredItem(Item):
+    def __init(self, name, sell_in, quality):
+        Item.__init__(self, name, sell_in, quality)
+
+    def update_item(self):
+        self.sell_in -= 1
+        self._update_quality()
+
+    def _update_quality(self):
+        if self.sell_in >= 0:
+            self.quality -= 2
+        else:
+            self.quality -= 4
+        if self.quality < 0:
+            self.quality = 0
+            

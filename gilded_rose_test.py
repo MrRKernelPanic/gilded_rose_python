@@ -1,6 +1,6 @@
 import pytest
 
-from gilded_rose import GildedRose, NormalItem, AgedItem, LegendaryItem, TicketItem
+from gilded_rose import GildedRose, NormalItem, AgedItem, LegendaryItem, TicketItem, ConjuredItem
 
 def test_normal_item():
     item = NormalItem("Apple", 5, 10)
@@ -15,7 +15,7 @@ def test_update_normal_item_quality():
 def test_normal_item_quality_cannot_go_below_zero():
     item = NormalItem("Pear", 7, 0)
     item.update_item()
-    assert item.quality == 0
+    assert item.quality == 0    
 
 def test_normal_item_quality_after_sell_date_passed():
     item = NormalItem("Pear", 0, 5)
@@ -82,6 +82,35 @@ def test_ticket_item_backstage_pass_one_sell_in():
     item = TicketItem("Backstage passes to a TAFKAL80ETC concert", 1 ,25)
     item.update_item()
     assert item.quality == 28    
+
+def test_conjured_item():
+    item = ConjuredItem("Summon Shirt", 5, 10)
+    assert "Summon Shirt, 5, 10" == item.__repr__()
+
+def test_update_item_conjured():
+    item = ConjuredItem("Pear", 7, 5)
+    item.update_item()
+    assert item.quality == 3
+
+def test_conjured_item_quality_cannot_go_below_zero():
+    item = ConjuredItem("Pear", 7, 0)
+    item.update_item()
+    assert item.quality == 0
+
+def test_conjured_item_quality_after_sell_date_passed():
+    item = ConjuredItem("Pear", 0, 5)
+    item.update_item()
+    assert item.quality == 1
+
+def test_conjured_item_quality_after_sell_date_passed_and_quality_is_zero():
+    item = ConjuredItem("Pear", 0, 0)
+    item.update_item()
+    assert item.quality == 0
+
+def test_conjured_item_quality_after_sell_date_passed_and_quality_is_one():
+    item = ConjuredItem("Pear", 1, 1)
+    item.update_item()
+    assert item.quality == 0
 
 def test_gilded_rose_shop_one_of_each_item_type():
     items = [
