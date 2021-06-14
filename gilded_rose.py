@@ -34,13 +34,9 @@ class NormalItem(Item):
         if self.quality < 0:
             self.quality = 0    
 
-class AgedItem(Item):
+class AgedItem(NormalItem):
     def __init__(self, name, sell_in, quality):
-        Item.__init__(self, name, sell_in, quality)
-
-    def update_item(self):
-        self.sell_in -= 1
-        self._update_quality()
+        NormalItem.__init__(self, name, sell_in, quality)
 
     def _update_quality(self):
         if self.sell_in <= 0:
@@ -50,20 +46,16 @@ class AgedItem(Item):
         if self.quality > 50:
             self.quality = 50
 
-class LegendaryItem(Item):
+class LegendaryItem(NormalItem):
     def __init__(self, name, sell_in, quality):
-        Item.__init__(self, name, sell_in, quality)
+        NormalItem.__init__(self, name, sell_in, quality)
 
     def update_item(self):
         pass
 
-class TicketItem(Item):
+class TicketItem(NormalItem):
     def __init__(self, name, sell_in, quality):
-        Item.__init__(self, name, sell_in, quality)
-    
-    def update_item(self):
-        self.sell_in -= 1
-        self._update_quality()
+        NormalItem.__init__(self, name, sell_in, quality)
 
     def _update_quality(self):
         if self.sell_in < 0:
@@ -75,13 +67,9 @@ class TicketItem(Item):
         elif self.quality > 0:
             self.quality += 1
 
-class ConjuredItem(Item):
+class ConjuredItem(NormalItem):
     def __init(self, name, sell_in, quality):
-        Item.__init__(self, name, sell_in, quality)
-
-    def update_item(self):
-        self.sell_in -= 1
-        self._update_quality()
+        NormalItem.__init__(self, name, sell_in, quality)
 
     def _update_quality(self):
         if self.sell_in >= 0:
