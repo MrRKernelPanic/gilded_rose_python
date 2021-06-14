@@ -1,4 +1,4 @@
-!.[GildedRose].(gilded_rose.png)
+![GildedRose](gilded_rose.png)
 
 # Gilded Rose
 An implementation of the Gilded Rose Kata in Python.  This attempt has used a structured class based approach based on TDD using polymorphism and inheritance to calculate the quality of goods in the store.  The shop can now deal with normal, special and conjured items as specified in the REQUIREMENTS.txt
